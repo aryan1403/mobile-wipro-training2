@@ -43,4 +43,14 @@ public class console {
         emp e = new emp(id, name, pos, salary, age);
         return e;
     }
+
+    public String removeEmp() throws IOException {
+        System.out.print("Enter the emp id: ");
+
+        InputStreamReader ir = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(ir);
+
+        String id = br.readLine(); 
+        return id;
+    }
 }

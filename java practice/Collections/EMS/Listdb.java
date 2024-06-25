@@ -14,8 +14,8 @@ public class Listdb {
     }
 
     // delete an employee
-    public void deleteEmp() {
-
+    public boolean deleteEmp(List<emp> list, emp e) {
+        return list.remove(e);
     }
 
     // update an employee

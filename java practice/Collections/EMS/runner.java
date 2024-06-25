@@ -3,6 +3,7 @@ package Collections.EMS;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class runner {
     runner() {
@@ -31,7 +32,15 @@ public class runner {
                     db.updateEmp();
                     break;
                 case 4:
-                    db.deleteEmp();
+                    String empid = con.removeEmp();
+                    // fetching the emp obj by id
+                    Optional<emp> oe = list.stream().filter(d -> d.id.equals(empid)).findFirst();
+                    if(!oe.isPresent()) {
+                        System.out.println("Employee with this id doesn't exist");
+                        break;
+                    }
+                    db.deleteEmp(list, oe.get());
+                    System.out.println("Employee deleted successfully");
                     break;
                 case 5:
                     System.out.println("Thank you for using our Employee Management System!");
