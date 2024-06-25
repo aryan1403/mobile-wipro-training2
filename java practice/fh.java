@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class fh {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         /* int ch;
         FileReader fr = new FileReader(new File("./meow.txt"));
         while ((ch=fr.read()) != -1) {
@@ -27,16 +27,24 @@ public class fh {
         br.lines().forEach(System.out::println);
         br.close(); */
 
-        FileWriter fr = new FileWriter(new File("./meow.txt"));
+        /* FileWriter fr = new FileWriter(new File("./meow.txt"));
         String str = "This is my new text";
 
         for (int i = 0; i < str.length(); i++) {
-            fr.write(str.charAt(i));
+            // fr.write(str.charAt(i));
         }
 
-        fr.close();
+        fr.close(); */
 
         
+        File f = new File("./meow.txt");
+        InputStreamReader isr = new InputStreamReader(new FileInputStream("./meow.txt"));
+        BufferedReader br = new BufferedReader(isr);
+
+        br.lines().filter(name -> name.startsWith("N"))
+            .forEach(System.out::println);
+
+
 
     }
 }
