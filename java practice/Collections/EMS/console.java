@@ -53,4 +53,44 @@ public class console {
         String id = br.readLine(); 
         return id;
     }
+
+    public String getEmpId() throws IOException {
+        System.out.print("Enter the emp Id to update: ");
+        InputStreamReader ir = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(ir);
+
+        String id = br.readLine(); 
+        return id;
+    }
+
+    public emp editEmp(emp updatedEmp) throws IOException {
+        InputStreamReader ir = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(ir);
+        
+        System.out.println("Enter the value to edit or leave empty");
+
+        System.out.print("Enter the emp name: ");
+        String name = br.readLine();
+
+        System.out.print("Enter the emp pos: ");
+        String pos = br.readLine();
+
+        System.out.print("Enter the salary: ");
+        String salary = br.readLine();
+
+        System.out.print("Enter the age: ");
+        String age = br.readLine();
+
+        if(!name.isEmpty()) {
+            updatedEmp.setName(name);
+        } if(!pos.isEmpty()) {
+            updatedEmp.setPosition(pos);
+        } if(!salary.isEmpty()) {
+            updatedEmp.setSalary(Double.parseDouble(salary));
+        } if(!age.isEmpty()) {
+            updatedEmp.setAge(Integer.parseInt(age));
+        }
+
+        return updatedEmp;
+    }
 }

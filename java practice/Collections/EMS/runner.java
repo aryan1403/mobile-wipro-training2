@@ -29,7 +29,14 @@ public class runner {
                     }
                     break;
                 case 3:
-                    db.updateEmp();
+                    String id = con.getEmpId();
+                    if(!db.empExist(list, id)) {
+                        System.out.println("Employee doesn't exist with this id");
+                        break;
+                    } 
+                    emp updatedEmp = con.editEmp(db.getEmpById(list, id));
+                    db.updateEmp(list, id, updatedEmp);
+                    System.out.println("Employee updated successfully");
                     break;
                 case 4:
                     String empid = con.removeEmp();
