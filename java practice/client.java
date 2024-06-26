@@ -2,6 +2,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Scanner;
 
 import Collections.listex;
 
@@ -20,7 +21,17 @@ public class client {
             out = new DataOutputStream(socket.getOutputStream());
 
             out.writeUTF("Hello from client!!");
+            // Scanner while loop --> reading output --> to the console
 
+            Scanner sc = new Scanner(System.in);
+            String msg = "";
+            while (!msg.equals("end")) {
+                System.out.print("Enter the msg: ");
+                msg = sc.nextLine();
+
+                out.writeUTF(msg);
+            }
+            sc.close();
             input.close();
             out.close();
             socket.close();

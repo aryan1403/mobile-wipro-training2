@@ -3,6 +3,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class server {
     private Socket socket = null;
@@ -18,9 +19,11 @@ public class server {
             socket = server.accept(); // accept the clien to connect
 
             input = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-
-            System.out.println(input.readUTF());
-
+            String msg = "";
+            // Scanner while loop --> taking input --> sending to the client
+            while (!(msg=input.readUTF()).equals("end")) {
+                System.out.println(msg);
+            }
             System.out.println("Connection closed");
             socket.close();
             input.close();
