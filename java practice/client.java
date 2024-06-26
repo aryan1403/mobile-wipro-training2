@@ -1,40 +1,56 @@
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-
-import Collections.listex;
 
 public class client {
     private Socket socket = null;
     private DataInputStream input = null;
     private DataOutputStream out = null;
 
+    Scanner sc = new Scanner(System.in);
+    helper h = new helper();
+
+    List<String> inbox = new ArrayList<>();
 
     public client(String address, int port) {
         try {
             socket = new Socket(address, port);
             System.out.println("Connected");
 
-            input = new DataInputStream(System.in);
-            out = new DataOutputStream(socket.getOutputStream());
-
-            out.writeUTF("Hello from client!!");
-            // Scanner while loop --> reading output --> to the console
-
-            Scanner sc = new Scanner(System.in);
-            String msg = "";
-            while (!msg.equals("end")) {
-                System.out.print("Enter the msg: ");
-                msg = sc.nextLine();
-
-                out.writeUTF(msg);
+            input = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            while (true) {
+                int choice = h.showOptions();
+                switch (choice) {
+                    case 1:
+                        System.out.print("Enter your message: ");
+                        String message = sc.nextLine();
+                        h.sendMessage(out, message);
+                        break;
+                    case 2:
+                        inbox.add(h.receiveMessage(input));
+                        System.out.println("Inbox: ");
+                        inbox.forEach(System.out::println);
+                        break;
+                    case 3:
+                        System.out.println("Thanks for using Java Networking services");
+                        sc.close();
+                        input.close();
+                        out.close();
+                        socket.close();
+                        System.exit(0);
+                        break;
+                    default:
+                        System.out.println("Wrong choice");
+                        break;
+                }
             }
-            sc.close();
-            input.close();
-            out.close();
-            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
