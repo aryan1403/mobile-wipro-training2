@@ -14,6 +14,5 @@ public class th {
         th.start();
         // th.join();
         th2.start();
-        
     }
 }
